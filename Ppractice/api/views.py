@@ -14,7 +14,7 @@ class PublicAPI(views.APIView):
             "type": "json",
             "pageNo": "1",
             "numOfRows": "10",
-            "stdgCd": "5214000000",
+            # "stdgCd": "1168000000", # 행정구역코드 삭제
         }
 
         try:
