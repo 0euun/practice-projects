@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from datetime import datetime
 
 class PublicSerializer(serializers.Serializer):
     stdgCd = serializers.CharField()           # 행정구역코드
@@ -16,3 +17,12 @@ class PublicSerializer(serializers.Serializer):
     rsvtSeatCnt = serializers.CharField()      # 예약 좌석 수
     rmndSeatCnt = serializers.CharField()      # 잔여 좌석 수
     totDt = serializers.CharField()            # 기준 시각 (예: 20250727164032)
+    formattedDate = serializers.SerializerMethodField() # 포맷된 날짜
+
+    def get_formattedDate(self, obj):
+        raw = obj.get("totDt", "")
+        try:
+            dt = datetime.strptime(raw, "%Y%m%d%H%M%S")
+            return dt.strftime("%Y-%m-%d %H:%M:%S")
+        except:
+            return None
