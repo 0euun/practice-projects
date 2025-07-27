@@ -132,9 +132,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 env = environ.Env(DEBUG=(bool, True))
 
 # 읽어올 환경 변수 파일을 지정
-environ.Env.read_env(
-    env_file = os.path.join(BASE_DIR, '.env')
-)
+environ.Env.read_env(BASE_DIR / '.env')
 
 # 설정한 변수를 읽어옴
 ENCODING_KEY = env("ENCODING_KEY")

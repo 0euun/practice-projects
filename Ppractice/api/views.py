@@ -6,22 +6,23 @@ from django.conf import settings
 from .serializers import *
 import requests
 
-ENCODING_KEY = settings.ENCODING_KEY
-DECODING_KEY = settings.DECODING_KEY
-
 class PublicAPI(views.APIView):
     def get(self, request):
-        url = "https://apis.data.go.kr/B551982/plr"
+        url = "http://apis.data.go.kr/B551982/plr/rlt_rdrm_info"
         params = {
-            "serviceKey": DECODING_KEY,
+            "serviceKey": settings.DECODING_KEY,
             "type": "json",
             "pageNo": "1",
             "numOfRows": "10",
-            "stdgCd": "1141000000",
+            "stdgCd": "5214000000",
         }
 
         try:
-            response = requests.get(url, params=params)
+
+            headers = {
+                'User-Agent': 'Mozilla/5.0'
+            }
+            response = requests.get(url, params=params, headers=headers, verify=False)
             if response.status_code != 200:
                 return Response({"error": "Failed to fetch data from the external API."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             data = response.json()
