@@ -27,8 +27,9 @@ class PublicAPI(views.APIView):
                 return Response({"error": "Failed to fetch data from the external API."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             data = response.json()
             items = data.get("body", {}).get("item", [])
+            lang = request.GET.get("lang", "ko")
 
-            serializer = PublicSerializer(items, many=True)
+            serializer = PublicSerializer(items, many=True, context={"language": lang})
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         except requests.exceptions.RequestException as e:
