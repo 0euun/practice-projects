@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'api',
+    'map',
     'rest_framework',
 ]
 
@@ -137,3 +138,6 @@ environ.Env.read_env(BASE_DIR / '.env')
 # 설정한 변수를 읽어옴
 ENCODING_KEY = env("ENCODING_KEY")
 DECODING_KEY = env("DECODING_KEY")
+
+NAVER_CLIENT_ID = env("NAVER_CLIENT_ID")
+NAVER_CLIENT_SECRET = env("NAVER_CLIENT_SECRET")
